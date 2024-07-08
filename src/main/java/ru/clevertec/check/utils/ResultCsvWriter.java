@@ -12,14 +12,23 @@ public class ResultCsvWriter {
     private static final String CSV_RESULT_FILENAME = "result.csv";
     private final String FORMATTED_DOUBLE = "%.2f$;";
 
-    private final Check check;
+    private final String filePath;
+    private Check check;
 
-    public ResultCsvWriter(Check check) {
+    public ResultCsvWriter(String filePath) {
+        if (filePath == null) {
+            this.filePath = CSV_RESULT_FILENAME;
+        } else {
+            this.filePath = filePath;
+        }
+    }
+
+    public void setCheck(Check check) {
         this.check = check;
     }
 
     public void writeResult() {
-        try (FileWriter writer = new FileWriter(CSV_RESULT_FILENAME)) {
+        try (FileWriter writer = new FileWriter(filePath)) {
             writer.append("Date;Time;\n");
             writer.append(check.getDate().toString() + ";" + check.getTime()
                     .format(DateTimeFormatter.ofPattern("HH:mm:ss")) + "\n\n");
@@ -50,8 +59,8 @@ public class ResultCsvWriter {
         }
     }
 
-    public static void writeError(String message) {
-        try (FileWriter writer = new FileWriter(CSV_RESULT_FILENAME)) {
+    public void writeError(String message) {
+        try (FileWriter writer = new FileWriter(filePath)) {
             writer.append(message);
         } catch (IOException e) {
             e.printStackTrace();

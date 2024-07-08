@@ -5,7 +5,7 @@ import main.java.ru.clevertec.check.model.DiscountCard;
 public class DiscountCardBuilder {
     private Long id;
     private String number;
-    private int discountAmount;
+    private Integer discountAmount;
 
     public DiscountCard build() {
         return new DiscountCard(id, number, discountAmount);
@@ -21,7 +21,7 @@ public class DiscountCardBuilder {
         return this;
     }
 
-    public DiscountCardBuilder setDiscountAmount(int discountAmount) {
+    public DiscountCardBuilder setDiscountAmount(Integer discountAmount) {
         this.discountAmount = discountAmount;
         return this;
     }

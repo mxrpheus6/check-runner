@@ -13,11 +13,15 @@ import java.util.Optional;
 
 public class OrderQuantityParser {
     private final ExceptionHandler exceptionHandler;
+    private final ProductCsvRepository productCsvRepository;
 
     private final List<OrderQuantity> orderQuantities = new ArrayList<>();
 
-    public OrderQuantityParser(ExceptionHandler exceptionHandler, List<String> idQuantityPairs) {
+    public OrderQuantityParser(ExceptionHandler exceptionHandler,
+                               ProductCsvRepository productCsvRepository,
+                               List<String> idQuantityPairs) {
         this.exceptionHandler = exceptionHandler;
+        this.productCsvRepository = productCsvRepository;
         try {
             parseOrderQuantities(idQuantityPairs);
         } catch (RuntimeException e) {
@@ -35,7 +39,7 @@ public class OrderQuantityParser {
             if (parts.length == 2) {
                 Long id = Long.parseLong(parts[0]);
                 int quantity = Integer.parseInt(parts[1]);
-                Optional<Product> optionalProduct = ProductCsvRepository.findProductById(id);
+                Optional<Product> optionalProduct = productCsvRepository.findProductById(id);
                 if (optionalProduct.isPresent()) {
                     Product product = optionalProduct.get();
 

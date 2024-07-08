@@ -3,7 +3,7 @@ package main.java.ru.clevertec.check.model;
 public class DiscountCard {
     private Long id;
     private String number;
-    private int discountAmount;
+    private Integer discountAmount;
 
     public DiscountCard(Long id, String number, int discountAmount) {
         this.id = id;
@@ -27,11 +27,11 @@ public class DiscountCard {
         this.number = number;
     }
 
-    public int getDiscountAmount() {
+    public Integer getDiscountAmount() {
         return discountAmount;
     }
 
-    public void setDiscountAmount(int discountAmount) {
+    public void setDiscountAmount(Integer discountAmount) {
         this.discountAmount = discountAmount;
     }
 }
