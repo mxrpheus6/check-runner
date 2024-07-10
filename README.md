@@ -6,6 +6,7 @@ https://youtu.be/xbD7jFKvw3c
 ## Стек
 - Java 21
 - Gradle 8.5
+- PostgreSQL
 
 ## Структура проекта
 
