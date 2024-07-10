@@ -54,12 +54,14 @@ public class CheckService {
             }
 
             int discountPercent;
-            if (discountCard == null) {
-                discountPercent = 0;
-            } else if (product.isWholesale() && quantity >= 5){
+            if (product.isWholesale() && quantity >= 5) {
                 discountPercent = 10;
             } else {
-                discountPercent = discountCard.getDiscountAmount();
+                if (discountCard == null) {
+                    discountPercent = 0;
+                } else {
+                    discountPercent = discountCard.getDiscountAmount();
+                }
             }
 
             double totalPrice = NumberUtils.floorToHundredths(productPrice * quantity);
