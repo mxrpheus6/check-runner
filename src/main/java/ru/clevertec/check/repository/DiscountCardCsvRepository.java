@@ -9,12 +9,10 @@ import java.io.IOException;
 import java.util.Optional;
 
 public class DiscountCardCsvRepository {
-    private static final String CSV_DELIMITER = ";";
-    private static final String DISCOUNT_CARDS_FILEPATH = "./src/main/resources/discountCards.csv";
+    private final String CSV_DELIMITER = ";";
+    private final String DISCOUNT_CARDS_FILEPATH = "./src/main/resources/discountCards.csv";
 
-    private DiscountCardCsvRepository() {}
-
-    public static Optional<DiscountCard> findDiscountCardByNumber(String number) {
+    public Optional<DiscountCard> findDiscountCardByNumber(String number) {
         Optional<DiscountCard> result = Optional.empty();
         try (BufferedReader reader = new BufferedReader(new FileReader(DISCOUNT_CARDS_FILEPATH))) {
             reader.readLine();

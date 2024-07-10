@@ -29,39 +29,53 @@ public class ResultCsvWriter {
 
     public void writeResult() {
         try (FileWriter writer = new FileWriter(filePath)) {
-            writer.append("Date;Time;\n");
-            writer.append(check.getDate().toString() + ";" + check.getTime()
-                    .format(DateTimeFormatter.ofPattern("HH:mm:ss")) + "\n\n");
-            writer.append("QTY;DESCRIPTION;PRICE;TOTAL;DISCOUNT;PERCENT;TOTAL WITH DISCOUNT\n");
-            for (CheckItem item: check.getItems()) {
-                writer.append(String.format("%d;", item.getQuantity()));
-                writer.append(item.getDescription() + ";");
-                writer.append(String.format(FORMATTED_DOUBLE, item.getItemPrice()));
-                writer.append(String.format(FORMATTED_DOUBLE, item.getTotalPrice()));
-                writer.append(String.format(FORMATTED_DOUBLE, item.getDiscountAmount()));
-                writer.append(String.format("%d%%;", item.getDiscountPercent()));
-                writer.append(String.format(FORMATTED_DOUBLE, item.getTotalWithDiscount()));
-                writer.append("\n");
+            StringBuilder sb = new StringBuilder();
+            sb.append("Date;Time\n")
+                    .append(check.getDate().toString())
+                    .append(";")
+                    .append(check.getTime().format(DateTimeFormatter.ofPattern("HH:mm:ss")))
+                    .append("\n\n")
+                    .append("QTY;DESCRIPTION;PRICE;TOTAL;DISCOUNT;PERCENT;TOTAL WITH DISCOUNT\n");
+
+            for (CheckItem item : check.getItems()) {
+                sb.append(formatCheckItem(item));
             }
-            writer.append("\n");
+            sb.append("\n");
+
             DiscountCard discountCard = check.getDiscountCard();
             if (discountCard != null) {
-                writer.append("DISCOUNT CARD;DISCOUNT PERCENTAGE;\n");
-                writer.append(discountCard.getNumber() + ";");
-                writer.append(discountCard.getDiscountAmount() + "%\n\n");
+                sb.append("DISCOUNT CARD;DISCOUNT PERCENTAGE\n")
+                        .append(discountCard.getNumber())
+                        .append(";")
+                        .append(discountCard.getDiscountAmount())
+                        .append("%\n\n");
             }
-            writer.append("TOTAL PRICE;TOTAL DISCOUNT;TOTAL WITH DISCOUNT;\n");
-            writer.append(String.format(FORMATTED_DOUBLE, check.getTotalPrice()));
-            writer.append(String.format(FORMATTED_DOUBLE, check.getTotalDiscountAmount()));
-            writer.append(String.format(FORMATTED_DOUBLE, check.getTotalWithDiscount()));
+
+            sb.append("TOTAL PRICE;TOTAL DISCOUNT;TOTAL WITH DISCOUNT\n")
+                    .append(String.format(FORMATTED_DOUBLE, check.getTotalPrice()))
+                    .append(String.format(FORMATTED_DOUBLE, check.getTotalDiscountAmount()))
+                    .append(String.format("%.2f$", check.getTotalWithDiscount()));
+
+            writer.write(sb.toString());
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+    private String formatCheckItem(CheckItem item) {
+        return String.format("%d;%s;%.2f$;%.2f$;%.2f$;%d%%;%.2f$\n",
+                item.getQuantity(),
+                item.getDescription(),
+                item.getItemPrice(),
+                item.getTotalPrice(),
+                item.getDiscountAmount(),
+                item.getDiscountPercent(),
+                item.getTotalWithDiscount());
+    }
+
     public void writeError(String message) {
         try (FileWriter writer = new FileWriter(filePath)) {
-            writer.append(message);
+            writer.write(message);
         } catch (IOException e) {
             e.printStackTrace();
         }

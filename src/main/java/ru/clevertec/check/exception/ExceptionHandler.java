@@ -12,6 +12,9 @@ public class ExceptionHandler {
     }
 
     public void handleException(RuntimeException e) {
+        if (resultCsvWriter == null) {
+            resultCsvWriter = new ResultCsvWriter(null);
+        }
         if (e instanceof InvalidArgumentException ||
                 e instanceof QuantityOutOfBoundException ||
                 e instanceof ProductNotFoundException ||
