@@ -10,9 +10,9 @@
 
 ## Запуск приложения
 1. **Компиляция**: Перейдите в корневую директорию проекта и выполните команду:  
-   `javac -cp src src/main/java/ru/clevertec/check/CheckRunner.java`
+   `javac -cp src ./src/main/java/ru/clevertec/check/CheckRunner.java`
 2. **Запуск**: Для запуска приложения используйте следующую команду, указав необходимые аргументы, например:  
-   `java -cp src ru.clevertec.check.CheckRunner 3-1 2-5 5-1 discountCard=1111 balanceDebitCard=100`
+   `java -cp src src/main/java/ru/clevertec/check/CheckRunner.java 3-1 2-5 5-1 discountCard=1111 balanceDebitCard=100`
 
 ## Аргументы командной строки
 
