@@ -15,6 +15,7 @@ import ru.clevertec.check.utils.ArgumentsParser;
 import ru.clevertec.check.utils.OrderQuantityParser;
 import ru.clevertec.check.utils.ResultCsvWriter;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public class CheckRunner {
@@ -62,7 +63,9 @@ public class CheckRunner {
             ResultCsvWriter writer = new ResultCsvWriter(saveToFile);
             writer.setCheck(check);
             writer.writeResult();
-        } catch (Exception e) {
+        } catch (SQLException e) {
+            exceptionHandler.handleException(e);
+        } catch (RuntimeException e) {
             exceptionHandler.handleException(e);
         }
     }
