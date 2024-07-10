@@ -1,6 +1,6 @@
-package main.java.ru.clevertec.check.model.builder;
+package ru.clevertec.check.model.builder;
 
-import main.java.ru.clevertec.check.model.DiscountCard;
+import ru.clevertec.check.model.DiscountCard;
 
 public class DiscountCardBuilder {
     private Long id;

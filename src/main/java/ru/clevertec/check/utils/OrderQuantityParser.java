@@ -1,45 +1,31 @@
-package main.java.ru.clevertec.check.utils;
+package ru.clevertec.check.utils;
 
-import main.java.ru.clevertec.check.exception.ExceptionHandler;
-import main.java.ru.clevertec.check.exception.ProductNotFoundException;
-import main.java.ru.clevertec.check.model.OrderQuantity;
-import main.java.ru.clevertec.check.model.Product;
-import main.java.ru.clevertec.check.model.builder.OrderQuantityBuilder;
-import main.java.ru.clevertec.check.repository.ProductCsvRepository;
+import ru.clevertec.check.exception.ProductNotFoundException;
+import ru.clevertec.check.model.OrderQuantity;
+import ru.clevertec.check.model.Product;
+import ru.clevertec.check.model.builder.OrderQuantityBuilder;
+import ru.clevertec.check.repository.ProductRepository;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 public class OrderQuantityParser {
-    private final ExceptionHandler exceptionHandler;
-    private final ProductCsvRepository productCsvRepository;
+    private final ProductRepository productRepository;
 
-    private final List<OrderQuantity> orderQuantities = new ArrayList<>();
-
-    public OrderQuantityParser(ExceptionHandler exceptionHandler,
-                               ProductCsvRepository productCsvRepository,
-                               List<String> idQuantityPairs) {
-        this.exceptionHandler = exceptionHandler;
-        this.productCsvRepository = productCsvRepository;
-        try {
-            parseOrderQuantities(idQuantityPairs);
-        } catch (RuntimeException e) {
-            exceptionHandler.handleException(e);
-        }
+    public OrderQuantityParser(ProductRepository productRepository) {
+        this.productRepository = productRepository;
     }
 
-    public List<OrderQuantity> getOrderQuantities() {
-        return orderQuantities;
-    }
-
-    public void parseOrderQuantities(List<String> pairs) {
+    public List<OrderQuantity> parseOrderQuantities(List<String> pairs) throws SQLException {
+        List<OrderQuantity> orderQuantities = new ArrayList<>();
         for (String pair: pairs) {
             String[] parts = pair.split("-");
             if (parts.length == 2) {
                 Long id = Long.parseLong(parts[0]);
                 int quantity = Integer.parseInt(parts[1]);
-                Optional<Product> optionalProduct = productCsvRepository.findProductById(id);
+                Optional<Product> optionalProduct = productRepository.findProductById(id);
                 if (optionalProduct.isPresent()) {
                     Product product = optionalProduct.get();
 
@@ -53,5 +39,6 @@ public class OrderQuantityParser {
                 }
             }
         }
+        return orderQuantities;
     }
 }

@@ -1,4 +1,4 @@
-package main.java.ru.clevertec.check.utils;
+package ru.clevertec.check.utils;
 
 public class NumberUtils {
     public static boolean isNumeric(String str) {

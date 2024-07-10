@@ -1,0 +1,36 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+group 'ru.clevertec'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:1.7.0'
+    implementation group: 'org.postgresql', name: 'postgresql', version: '42.7.3'
+}
+
+application {
+    mainClassName = 'ru.clevertec.check.CheckRunner'
+}
+
+jar {
+    archiveBaseName.set('clevertec-check')
+    version = ''
+    destinationDirectory = file("$projectDir")
+
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+    manifest {
+        attributes(
+                'Main-Class': 'ru.clevertec.check.CheckRunner'
+        )
+    }
+}

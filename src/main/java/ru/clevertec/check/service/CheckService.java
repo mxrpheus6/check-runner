@@ -1,11 +1,11 @@
-package main.java.ru.clevertec.check.service;
+package ru.clevertec.check.service;
 
-import main.java.ru.clevertec.check.exception.NotEnoughMoneyException;
-import main.java.ru.clevertec.check.exception.QuantityOutOfBoundException;
-import main.java.ru.clevertec.check.model.*;
-import main.java.ru.clevertec.check.model.builder.CheckBuilder;
-import main.java.ru.clevertec.check.model.builder.CheckItemBuilder;
-import main.java.ru.clevertec.check.utils.NumberUtils;
+import ru.clevertec.check.exception.NotEnoughMoneyException;
+import ru.clevertec.check.exception.QuantityOutOfBoundException;
+import ru.clevertec.check.model.*;
+import ru.clevertec.check.model.builder.CheckBuilder;
+import ru.clevertec.check.model.builder.CheckItemBuilder;
+import ru.clevertec.check.utils.NumberUtils;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -54,12 +54,14 @@ public class CheckService {
             }
 
             int discountPercent;
-            if (discountCard == null) {
-                discountPercent = 0;
-            } else if (product.isWholesale() && quantity >= 5){
+            if (product.isWholesale() && quantity >= 5) {
                 discountPercent = 10;
             } else {
-                discountPercent = discountCard.getDiscountAmount();
+                if (discountCard == null) {
+                    discountPercent = 0;
+                } else {
+                    discountPercent = discountCard.getDiscountAmount();
+                }
             }
 
             double totalPrice = NumberUtils.floorToHundredths(productPrice * quantity);

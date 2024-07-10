@@ -1,8 +1,8 @@
-package main.java.ru.clevertec.check.model.builder;
+package ru.clevertec.check.model.builder;
 
-import main.java.ru.clevertec.check.model.Check;
-import main.java.ru.clevertec.check.model.CheckItem;
-import main.java.ru.clevertec.check.model.DiscountCard;
+import ru.clevertec.check.model.Check;
+import ru.clevertec.check.model.CheckItem;
+import ru.clevertec.check.model.DiscountCard;
 
 import java.time.LocalDate;
 import java.time.LocalTime;

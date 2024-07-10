@@ -1,8 +1,8 @@
-package main.java.ru.clevertec.check.model.builder;
+package ru.clevertec.check.model.builder;
 
-import main.java.ru.clevertec.check.model.DiscountCard;
-import main.java.ru.clevertec.check.model.Order;
-import main.java.ru.clevertec.check.model.OrderQuantity;
+import ru.clevertec.check.model.DiscountCard;
+import ru.clevertec.check.model.Order;
+import ru.clevertec.check.model.OrderQuantity;
 
 import java.util.ArrayList;
 import java.util.List;

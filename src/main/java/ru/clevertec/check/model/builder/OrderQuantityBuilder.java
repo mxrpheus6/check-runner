@@ -1,7 +1,7 @@
-package main.java.ru.clevertec.check.model.builder;
+package ru.clevertec.check.model.builder;
 
-import main.java.ru.clevertec.check.model.OrderQuantity;
-import main.java.ru.clevertec.check.model.Product;
+import ru.clevertec.check.model.OrderQuantity;
+import ru.clevertec.check.model.Product;
 
 public class OrderQuantityBuilder {
     private Product product;

@@ -1,6 +1,6 @@
-package main.java.ru.clevertec.check.model.builder;
+package ru.clevertec.check.model.builder;
 
-import main.java.ru.clevertec.check.model.CheckItem;
+import ru.clevertec.check.model.CheckItem;
 
 public class CheckItemBuilder {
     private Integer quantity;
