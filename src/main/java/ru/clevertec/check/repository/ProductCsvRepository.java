@@ -9,12 +9,10 @@ import java.io.IOException;
 import java.util.Optional;
 
 public class ProductCsvRepository {
-    private static final String CSV_DELIMITER = ";";
-    private static final String PRODUCTS_FILEPATH = "./src/main/resources/products.csv";
+    private final String CSV_DELIMITER = ";";
+    private final String PRODUCTS_FILEPATH = "./src/main/resources/products.csv";
 
-    private ProductCsvRepository() {}
-
-    public static Optional<Product> findProductById(Long id) {
+    public Optional<Product> findProductById(Long id) {
         Optional<Product> result = Optional.empty();
         try (BufferedReader reader = new BufferedReader(new FileReader(PRODUCTS_FILEPATH))) {
             reader.readLine();
