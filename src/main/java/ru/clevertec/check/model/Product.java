@@ -1,5 +1,7 @@
 package ru.clevertec.check.model;
 
+import java.util.Objects;
+
 public class Product {
     private Long id;
     private String description;
@@ -53,5 +55,22 @@ public class Product {
 
     public void setWholesale(boolean wholesale) {
         isWholesale = wholesale;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Product product = (Product) o;
+        return Double.compare(product.price, price) == 0 &&
+                quantity == product.quantity &&
+                isWholesale == product.isWholesale &&
+                Objects.equals(id, product.id) &&
+                Objects.equals(description, product.description);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, description, price, quantity, isWholesale);
     }
 }

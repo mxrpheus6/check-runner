@@ -41,7 +41,7 @@ public class ArgumentsParser {
 
     public static Double parseBalanceDebitCard(String[] args) {
         String balanceStr = parseArgument(args, ARG_BALANCE_DEBIT_CARD);
-        if (balanceStr == null) {
+        if (!NumberUtils.isNumeric(balanceStr)) {
             throw new InvalidArgumentException("Balance not provided");
         }
         return Double.parseDouble(balanceStr);
